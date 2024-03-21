@@ -110,11 +110,11 @@ function loadOrBuildManifest(
       ...(inputs.fork && {
         fork: inputs.fork,
         logger: {
-          error: (m) => core.error(m),
-          warn: (m) => core.warning(m),
-          info: (m) => core.info(m),
-          debug: (m) => core.debug(m),
-          trace: (m) => core.debug(m),
+          error: (m: string) => core.error(m),
+          warn: (m: string) => core.warning(m),
+          info: (m: string) => core.info(m),
+          debug: (m: string) => core.debug(m),
+          trace: (m: string) => core.debug(m),
         },
       }),
     },
