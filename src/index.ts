@@ -99,18 +99,25 @@ function loadOrBuildManifest(
       inputs.path
     );
   }
-  const manifestOverrides = inputs.fork
-    ? {
-        fork: inputs.fork,
-      }
-    : {};
+
   core.debug('Loading manifest from config file');
   return Manifest.fromManifest(
     github,
     github.repository.defaultBranch,
     inputs.configFile,
     inputs.manifestFile,
-    manifestOverrides
+    {
+      ...(inputs.fork && {
+        fork: inputs.fork,
+        logger: {
+          error: (m) => core.error(m),
+          warn: (m) => core.warning(m),
+          info: (m) => core.info(m),
+          debug: (m) => core.debug(m),
+          trace: (m) => core.debug(m),
+        },
+      }),
+    },
   );
 }
 
